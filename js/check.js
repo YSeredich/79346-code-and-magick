@@ -5,7 +5,7 @@ function getMessage(a,b) {
   var message;
 
   if (typeof a === "boolean") {
-    if ( a === true) {
+    if (a) {
       message = "Я попал в " + b;
     } else {
       message = "Я никуда не попал";
