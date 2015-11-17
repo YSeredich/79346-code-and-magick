@@ -383,10 +383,10 @@
       this.ctx.shadowOffsetX = 10;
       this.ctx.shadowOffsetY = 10;
       this.ctx.shadowColor = 'rgba(0, 0, 0, 0.7)';
-      this.ctx.lineTo(50,40);
-      this.ctx.lineTo(300,0);
-      this.ctx.lineTo(220,150);
-      this.ctx.lineTo(0,135);
+      this.ctx.lineTo(50, 40);
+      this.ctx.lineTo(300, 0);
+      this.ctx.lineTo(220, 150);
+      this.ctx.lineTo(0, 135);
       this.ctx.closePath();
       this.ctx.fill();
       this.ctx.shadowOffsetX = 0;
