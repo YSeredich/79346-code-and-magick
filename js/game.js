@@ -389,6 +389,8 @@
       this.ctx.lineTo(0,135);
       this.ctx.closePath();
       this.ctx.fill();
+      this.ctx.shadowOffsetX = 0;
+      this.ctx.shadowOffsetY = 0;
       this.ctx.font = '16px PT Mono';
       this.ctx.fillStyle = 'Black';
 
