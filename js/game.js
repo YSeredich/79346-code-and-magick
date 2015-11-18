@@ -258,9 +258,31 @@
     this._pauseListener = this._pauseListener.bind(this);
   };
 
-  function wrapText(context, text, mLeft, mTop, maxWidth, lineHeight) {
+  function drawMessageScrean(context, text, mLeft, mTop, maxWidth, lineHeight) {
     var words = text.split(' ');
     var countWords = words.length;
+    var lineWidth = 0;
+    var rectBottom = mTop + lineHeight + 20;
+
+    for (var n = 0; n < countWords; n++) {
+      lineWidth +=  context.measureText(words[n] + ' ').width;
+      if (lineWidth > maxWidth) {
+        rectBottom += lineHeight;
+        lineWidth = context.measureText(words[n] + ' ').width;
+      }
+    }
+    context.beginPath();
+    context.fillStyle = '#fff';
+    context.shadowOffsetX = 10;
+    context.shadowOffsetY = 10;
+    context.shadowColor = 'rgba(0, 0, 0, 0.7)';
+    context.moveTo(50, 40);
+    context.lineTo(400, 0);
+    context.lineTo(360, rectBottom);
+    context.lineTo(0, rectBottom);
+    context.closePath();
+    context.fill();
+
     var line = '';
     for (var n = 0; n < countWords; n++) {
       var testLine = line + words[n] + ' ';
@@ -399,22 +421,10 @@
       var context = this.ctx;
       var text = '';
 
-      context.beginPath();
-      context.fillStyle = '#fff';
-      context.shadowOffsetX = 10;
-      context.shadowOffsetY = 10;
-      context.shadowColor = 'rgba(0, 0, 0, 0.7)';
-      context.lineTo(50, 40);
-      context.lineTo(400, 0);
-      context.lineTo(320, 175);
-      context.lineTo(0, 175);
-      context.closePath();
-      context.fill();
-
       switch (this.state.currentStatus) {
         case Verdict.WIN:
           console.log('you have won!');
-          text = 'Победа! Касавчик! Иди ешь борщ!';
+          text = 'Победа! Красавчик! Иди ешь борщ!';
           break;
         case Verdict.FAIL:
           console.log('you have failed!');
@@ -426,7 +436,7 @@
           break;
         case Verdict.INTRO:
           console.log('welcome to the game! Press Space to start');
-          text = 'Хочешь сыграть в игру?! Жми пробел и узнаешь!';
+          text = 'Хочешь сыграть в игру?? Начни и узнаешь! Я Пендольф Синий! И у меня есть файерболы!';
           break;
       }
 
@@ -439,7 +449,7 @@
       context.shadowOffsetY = 0;
       context.font = '16px PT Mono';
       context.fillStyle = 'Black';
-      wrapText(context, text, mLeft, mTop, maxWidth, lineHeight);
+      drawMessageScrean(context, text, mLeft, mTop, maxWidth, lineHeight);
     },
 
     /**
