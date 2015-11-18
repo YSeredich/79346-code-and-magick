@@ -265,7 +265,7 @@
     var rectBottom = mTop + lineHeight + 20;
 
     for (var n = 0; n < countWords; n++) {
-      lineWidth +=  context.measureText(words[n] + ' ').width;
+      lineWidth += context.measureText(words[n] + ' ').width;
       if (lineWidth > maxWidth) {
         rectBottom += lineHeight;
         lineWidth = context.measureText(words[n] + ' ').width;
@@ -284,7 +284,7 @@
     context.fill();
 
     var line = '';
-    for (var n = 0; n < countWords; n++) {
+    for (n = 0; n < countWords; n++) {
       var testLine = line + words[n] + ' ';
       var testWidth = context.measureText(testLine).width;
       if (testWidth > maxWidth) {
