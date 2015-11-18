@@ -398,25 +398,20 @@
      * Отрисовка экрана паузы.
      */
     _drawPauseScreen: function() {
-      this.ctx.beginPath();
-      this.ctx.fillStyle = '#fff';
-      this.ctx.shadowOffsetX = 10;
-      this.ctx.shadowOffsetY = 10;
-      this.ctx.shadowColor = 'rgba(0, 0, 0, 0.7)';
-      this.ctx.lineTo(50, 40);
-      this.ctx.lineTo(400, 0);
-      this.ctx.lineTo(320, 170);
-      this.ctx.lineTo(0, 150);
-      this.ctx.closePath();
-      this.ctx.fill();
-      this.ctx.shadowOffsetX = 0;
-      this.ctx.shadowOffsetY = 0;
       var context = this.ctx;
       var text = '';
-      var mLeft = 50;
-      var mTop = 60;
-      var maxWidth = 300;
-      var lineHeight = 35;
+
+      context.beginPath();
+      context.fillStyle = '#fff';
+      context.shadowOffsetX = 10;
+      context.shadowOffsetY = 10;
+      context.shadowColor = 'rgba(0, 0, 0, 0.7)';
+      context.lineTo(50, 40);
+      context.lineTo(400, 0);
+      context.lineTo(320, 175);
+      context.lineTo(0, 175);
+      context.closePath();
+      context.fill();
 
       switch (this.state.currentStatus) {
         case Verdict.WIN:
@@ -436,6 +431,14 @@
           text = 'Хочешь сыграть в игру?! Жми пробел и узнаешь!';
           break;
       }
+
+      var mLeft = 60;
+      var mTop = 70;
+      var maxWidth = 300;
+      var lineHeight = 30;
+
+      context.shadowOffsetX = 0;
+      context.shadowOffsetY = 0;
       context.font = '16px PT Mono';
       context.fillStyle = 'Black';
       wrapText(context, text, mLeft, mTop, maxWidth, lineHeight);
