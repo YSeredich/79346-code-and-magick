@@ -270,8 +270,7 @@
         line = words[n] + ' ';
         mTop += lineHeight;
       }
-      else {
-        line = testLine; }
+      else line = testLine;
     }
     context.fillText(line, mLeft, mTop);
   }
