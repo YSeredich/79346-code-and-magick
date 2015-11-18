@@ -269,8 +269,7 @@
         context.fillText(line, mLeft, mTop);
         line = words[n] + ' ';
         mTop += lineHeight;
-      }
-      else {
+      } else {
         line = testLine;
       }
     }
