@@ -258,6 +258,24 @@
     this._pauseListener = this._pauseListener.bind(this);
   };
 
+  function wrapText(context, text, mLeft, mTop, maxWidth, lineHeight) {
+    var words = text.split(' ');
+    var countWords = words.length;
+    var line = '';
+    for (var n = 0; n < countWords; n++) {
+      var testLine = line + words[n] + ' ';
+      var testWidth = context.measureText(testLine).width;
+      if (testWidth > maxWidth) {
+        context.fillText(line, mLeft, mTop);
+        line = words[n] + ' ';
+        mTop += lineHeight;
+      } else {
+        line = testLine;
+      }
+    }
+    context.fillText(line, mLeft, mTop);
+  }
+
   Game.prototype = {
     /**
      * Текущий уровень игры.
@@ -378,44 +396,50 @@
      * Отрисовка экрана паузы.
      */
     _drawPauseScreen: function() {
-      this.ctx.beginPath();
-      this.ctx.fillStyle = '#fff';
-      this.ctx.shadowOffsetX = 10;
-      this.ctx.shadowOffsetY = 10;
-      this.ctx.shadowColor = 'rgba(0, 0, 0, 0.7)';
-      this.ctx.lineTo(50, 40);
-      this.ctx.lineTo(300, 0);
-      this.ctx.lineTo(220, 150);
-      this.ctx.lineTo(0, 135);
-      this.ctx.closePath();
-      this.ctx.fill();
-      this.ctx.shadowOffsetX = 0;
-      this.ctx.shadowOffsetY = 0;
-      this.ctx.font = '16px PT Mono';
-      this.ctx.fillStyle = 'Black';
+      var context = this.ctx;
+      var text = '';
+
+      context.beginPath();
+      context.fillStyle = '#fff';
+      context.shadowOffsetX = 10;
+      context.shadowOffsetY = 10;
+      context.shadowColor = 'rgba(0, 0, 0, 0.7)';
+      context.lineTo(50, 40);
+      context.lineTo(400, 0);
+      context.lineTo(320, 175);
+      context.lineTo(0, 175);
+      context.closePath();
+      context.fill();
 
       switch (this.state.currentStatus) {
         case Verdict.WIN:
           console.log('you have won!');
-          this.ctx.fillText('Победа! Касавчик!', 60, 60);
-          this.ctx.fillText('Иди ешь борщ', 50, 95);
+          text = 'Победа! Касавчик! Иди ешь борщ!';
           break;
         case Verdict.FAIL:
           console.log('you have failed!');
-          this.ctx.fillText('Ха-ха! Лузер!', 60, 60);
-          this.ctx.fillText('Никакого тебе борща!', 50, 95);
+          text = 'Ха-ха! Лузер! Никакого тебе борща!';
           break;
         case Verdict.PAUSE:
           console.log('game is on pause!');
-          this.ctx.fillText('Ну ты куда??', 60, 60);
-          this.ctx.fillText('Ауу!', 50, 95);
+          text = 'Ну ты куда?? Ауу!';
           break;
         case Verdict.INTRO:
           console.log('welcome to the game! Press Space to start');
-          this.ctx.fillText('Хочешь сыграть в игру?!', 60, 60);
-          this.ctx.fillText(' Жми пробел и узнаешь!', 50, 95);
+          text = 'Хочешь сыграть в игру?! Жми пробел и узнаешь!';
           break;
       }
+
+      var mLeft = 60;
+      var mTop = 70;
+      var maxWidth = 300;
+      var lineHeight = 30;
+
+      context.shadowOffsetX = 0;
+      context.shadowOffsetY = 0;
+      context.font = '16px PT Mono';
+      context.fillStyle = 'Black';
+      wrapText(context, text, mLeft, mTop, maxWidth, lineHeight);
     },
 
     /**
