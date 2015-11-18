@@ -258,8 +258,7 @@
     this._pauseListener = this._pauseListener.bind(this);
   };
 
-  function wrapText(context, text, mLeft, mTop, maxWidth, lineHeight)
-  {
+  function wrapText(context, text, mLeft, mTop, maxWidth, lineHeight) {
     var words = text.split(' ');
     var countWords = words.length;
     var line = '';
@@ -272,8 +271,7 @@
         mTop += lineHeight;
       }
       else {
-        line = testLine;
-      }
+        line = testLine; }
     }
     context.fillText(line, mLeft, mTop);
   }
