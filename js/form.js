@@ -14,9 +14,11 @@
   var reviewFields = formElement.querySelector('.review-fields');
   var reviewFieldsName = reviewFields.querySelector('.review-fields-name');
   var reviewFieldsText = reviewFields.querySelector('.review-fields-text');
+  var reviewSubmit = formElement.querySelector('.review-submit');
 
   formReviewName.required = true;
   formReviewText.required = false;
+  reviewSubmit.disabled = true;
   reviewFieldsText.classList.add('invisible');
 
   formOpenButton.onclick = function(evt) {
@@ -64,8 +66,10 @@
     }
     if ((contentText.length !== 0 || !formReviewText.required) && contentName.length !== 0) {
       reviewFields.classList.add('invisible');
+      reviewSubmit.disabled = false;
     } else {
       reviewFields.classList.remove('invisible');
+      reviewSubmit.disabled = true;
     }
   };
 
@@ -79,8 +83,10 @@
     }
     if ((contentText.length !== 0 || !formReviewText.required) && contentName.length !== 0) {
       reviewFields.classList.add('invisible');
+      reviewSubmit.disabled = false;
     } else {
       reviewFields.classList.remove('invisible');
+      reviewSubmit.disabled = true;
     }
   };
 })();
