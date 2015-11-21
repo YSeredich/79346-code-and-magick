@@ -20,14 +20,14 @@
   var formReviewText = formElement['review-text'];
 
   // для оценок вытянула 1 и 2
-  var reviewMark1 =  formElement['review-mark-1'];
-  var reviewMark2 =  formElement['review-mark-2'];
+  var reviewMark1 = formElement['review-mark-1'];
+  var reviewMark2 = formElement['review-mark-2'];
 
-  reviewMark1.onclick = function(evt) {
+  reviewMark1.onclick = function() {
     formReviewText.required = true;
   };
 
-  reviewMark2.onclick = function(evt) {
+  reviewMark2.onclick = function() {
     formReviewText.required = true;
   };
 
@@ -36,7 +36,27 @@
   var reviewFieldsName = reviewFields.querySelector('.review-fields-name');
   var reviewFieldsText = reviewFields.querySelector('.review-fields-text');
 
+  formReviewName.onchange = function() {
+    var contentName = formReviewName.value;
+    //var contentText = formReviewText.value;
+    if (contentName.lenght !== 0) {
+      reviewFieldsName.classList.add('invisible');
+    }/*
+    if (contentText.lenght != 0) {
+      reviewFields.classList.add('invisible');
+    };*/
+  };
 
+  formReviewText.onchange = function() {
+    //var contentName = formReviewName.value;
+    var contentText = formReviewText.value;
+    if (contentText.lenght !== 0) {
+      reviewFieldsText.classList.add('invisible');
+    }/*
+    if (contentName.lenght != 0) {
+      reviewFields.classList.add('invisible');
+    };*/
+  };
 
 
 
