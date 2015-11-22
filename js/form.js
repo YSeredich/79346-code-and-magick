@@ -31,9 +31,9 @@
     formContainer.classList.add('invisible');
   };
 
-  function requiredOrNotButton(NameField, TextField) {
-    var contentName = NameField.value;
-    var contentText = TextField.value;
+  function requiredOrNotButton() {
+    var contentName = formReviewName.value;
+    var contentText = formReviewText.value;
     if ((contentText.length !== 0 || !formReviewText.required) && contentName.length !== 0) {
       reviewFields.classList.add('invisible');
       reviewSubmit.disabled = false;
@@ -45,32 +45,42 @@
 
   reviewMark1.onclick = function() {
     formReviewText.required = true;
-    reviewFieldsText.classList.remove('invisible');
-    requiredOrNotButton(formReviewName, formReviewText);
+    var contentText = formReviewText.value;
+    if (contentText.length !== 0 || !formReviewText.required) {
+      reviewFieldsText.classList.add('invisible');
+    } else {
+      reviewFieldsText.classList.remove('invisible');
+    }
+    requiredOrNotButton();
   };
 
   reviewMark2.onclick = function() {
     formReviewText.required = true;
-    reviewFieldsText.classList.remove('invisible');
-    requiredOrNotButton(formReviewName, formReviewText);
+    var contentText = formReviewText.value;
+    if (contentText.length !== 0 || !formReviewText.required) {
+      reviewFieldsText.classList.add('invisible');
+    } else {
+      reviewFieldsText.classList.remove('invisible');
+    }
+    requiredOrNotButton();
   };
 
   reviewMark3.onclick = function() {
     formReviewText.required = false;
     reviewFieldsText.classList.add('invisible');
-    requiredOrNotButton(formReviewName, formReviewText);
+    requiredOrNotButton();
   };
 
   reviewMark4.onclick = function() {
     formReviewText.required = false;
     reviewFieldsText.classList.add('invisible');
-    requiredOrNotButton(formReviewName, formReviewText);
+    requiredOrNotButton();
   };
 
   reviewMark5.onclick = function() {
     formReviewText.required = false;
     reviewFieldsText.classList.add('invisible');
-    requiredOrNotButton(formReviewName, formReviewText);
+    requiredOrNotButton();
   };
 
   formReviewName.onchange = function() {
@@ -80,7 +90,7 @@
     } else {
       reviewFieldsName.classList.remove('invisible');
     }
-    requiredOrNotButton(formReviewName, formReviewText);
+    requiredOrNotButton();
   };
 
   formReviewText.onchange = function() {
@@ -90,6 +100,6 @@
     } else {
       reviewFieldsText.classList.remove('invisible');
     }
-    requiredOrNotButton(formReviewName, formReviewText);
+    requiredOrNotButton();
   };
 })();
