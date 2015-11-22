@@ -31,39 +31,9 @@
     formContainer.classList.add('invisible');
   };
 
-  reviewMark1.onclick = function() {
-    formReviewText.required = true;
-    reviewFieldsText.classList.remove('invisible');
-  };
-
-  reviewMark2.onclick = function() {
-    formReviewText.required = true;
-    reviewFieldsText.classList.remove('invisible');
-  };
-
-  reviewMark3.onclick = function() {
-    formReviewText.required = false;
-    reviewFieldsText.classList.add('invisible');
-  };
-
-  reviewMark4.onclick = function() {
-    formReviewText.required = false;
-    reviewFieldsText.classList.add('invisible');
-  };
-
-  reviewMark5.onclick = function() {
-    formReviewText.required = false;
-    reviewFieldsText.classList.add('invisible');
-  };
-
-  formReviewName.onchange = function() {
-    var contentName = formReviewName.value;
-    var contentText = formReviewText.value;
-    if (contentName.length !== 0) {
-      reviewFieldsName.classList.add('invisible');
-    } else {
-      reviewFieldsName.classList.remove('invisible');
-    }
+  function requiredOrNotButton(NameField, TextField) {
+    var contentName = NameField.value;
+    var contentText = TextField.value;
     if ((contentText.length !== 0 || !formReviewText.required) && contentName.length !== 0) {
       reviewFields.classList.add('invisible');
       reviewSubmit.disabled = false;
@@ -71,22 +41,55 @@
       reviewFields.classList.remove('invisible');
       reviewSubmit.disabled = true;
     }
+  }
+
+  reviewMark1.onclick = function() {
+    formReviewText.required = true;
+    reviewFieldsText.classList.remove('invisible');
+    requiredOrNotButton(formReviewName, formReviewText);
+  };
+
+  reviewMark2.onclick = function() {
+    formReviewText.required = true;
+    reviewFieldsText.classList.remove('invisible');
+    requiredOrNotButton(formReviewName, formReviewText);
+  };
+
+  reviewMark3.onclick = function() {
+    formReviewText.required = false;
+    reviewFieldsText.classList.add('invisible');
+    requiredOrNotButton(formReviewName, formReviewText);
+  };
+
+  reviewMark4.onclick = function() {
+    formReviewText.required = false;
+    reviewFieldsText.classList.add('invisible');
+    requiredOrNotButton(formReviewName, formReviewText);
+  };
+
+  reviewMark5.onclick = function() {
+    formReviewText.required = false;
+    reviewFieldsText.classList.add('invisible');
+    requiredOrNotButton(formReviewName, formReviewText);
+  };
+
+  formReviewName.onchange = function() {
+    var contentName = formReviewName.value;
+    if (contentName.length !== 0) {
+      reviewFieldsName.classList.add('invisible');
+    } else {
+      reviewFieldsName.classList.remove('invisible');
+    }
+    requiredOrNotButton(formReviewName, formReviewText);
   };
 
   formReviewText.onchange = function() {
-    var contentName = formReviewName.value;
     var contentText = formReviewText.value;
     if (contentText.length !== 0 || !formReviewText.required) {
       reviewFieldsText.classList.add('invisible');
     } else {
       reviewFieldsText.classList.remove('invisible');
     }
-    if ((contentText.length !== 0 || !formReviewText.required) && contentName.length !== 0) {
-      reviewFields.classList.add('invisible');
-      reviewSubmit.disabled = false;
-    } else {
-      reviewFields.classList.remove('invisible');
-      reviewSubmit.disabled = true;
-    }
+    requiredOrNotButton(formReviewName, formReviewText);
   };
 })();
