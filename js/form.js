@@ -3,14 +3,19 @@
   var formContainer = document.querySelector('.overlay-container');
   var formOpenButton = document.querySelector('.reviews-controls-new');
   var formCloseButton = document.querySelector('.review-form-close');
+
   var formElement = formContainer.querySelector('.review-form');
   var formReviewName = formElement['review-name'];
   var formReviewText = formElement['review-text'];
+
+  var reviewMark = document.getElementsByName('review-mark');
+
   var reviewMark1 = formElement['review-mark-1'];
   var reviewMark2 = formElement['review-mark-2'];
   var reviewMark3 = formElement['review-mark-3'];
   var reviewMark4 = formElement['review-mark-4'];
   var reviewMark5 = formElement['review-mark-5'];
+
   var reviewFields = formElement.querySelector('.review-fields');
   var reviewFieldsName = reviewFields.querySelector('.review-fields-name');
   var reviewFieldsText = reviewFields.querySelector('.review-fields-text');
@@ -101,5 +106,20 @@
       reviewFieldsText.classList.remove('invisible');
     }
     requiredOrNotButton();
+  };
+
+  formElement.onsubmit = function(evt) {
+    evt.preventDefault();
+    var MY_LAST_BD = +new Date(2015, 6, 27);
+    var expDate = +Date.now() + +Date.now() - MY_LAST_BD;
+    var valueCurrentRadio;
+    for (var i = 0; i < reviewMark.length; i++) {
+      if (reviewMark[i].checked) {
+        valueCurrentRadio = reviewMark[i].value;
+        break;
+      }
+    }
+    docCookies.setItem('mark', valueCurrentRadio, expDate);
+    docCookies.setItem('name', formReviewName.value, expDate);
   };
 })();
