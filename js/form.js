@@ -48,8 +48,7 @@
     }
   }
 
-  reviewMark1.onclick = function() {
-    formReviewText.required = true;
+  function fillReviewText() {
     var contentText = formReviewText.value;
     if (contentText.length !== 0 || !formReviewText.required) {
       reviewFieldsText.classList.add('invisible');
@@ -57,17 +56,16 @@
       reviewFieldsText.classList.remove('invisible');
     }
     requiredOrNotButton();
+  }
+
+  reviewMark1.onclick = function() {
+    formReviewText.required = true;
+    fillReviewText();
   };
 
   reviewMark2.onclick = function() {
     formReviewText.required = true;
-    var contentText = formReviewText.value;
-    if (contentText.length !== 0 || !formReviewText.required) {
-      reviewFieldsText.classList.add('invisible');
-    } else {
-      reviewFieldsText.classList.remove('invisible');
-    }
-    requiredOrNotButton();
+    fillReviewText();
   };
 
   reviewMark3.onclick = function() {
@@ -99,19 +97,12 @@
   };
 
   formReviewText.onchange = function() {
-    var contentText = formReviewText.value;
-    if (contentText.length !== 0 || !formReviewText.required) {
-      reviewFieldsText.classList.add('invisible');
-    } else {
-      reviewFieldsText.classList.remove('invisible');
-    }
-    requiredOrNotButton();
+    fillReviewText()
   };
 
-  formElement.onsubmit = function(evt) {
-    evt.preventDefault();
+  formElement.onsubmit = function() {
     var MY_LAST_BD = +new Date(2015, 6, 27);
-    var expDate = +Date.now() + +Date.now() - MY_LAST_BD;
+    var expDate = (+Date.now() * 2 - MY_LAST_BD) / 1000;
     var valueCurrentRadio;
     for (var i = 0; i < reviewMark.length; i++) {
       if (reviewMark[i].checked) {
