@@ -21,6 +21,9 @@
   var reviewFieldsText = reviewFields.querySelector('.review-fields-text');
   var reviewSubmit = formElement.querySelector('.review-submit');
 
+  var cookieName = docCookies.getItem('name');
+  var cookieMark = docCookies.getItem('mark');
+
   formReviewName.required = true;
   formReviewText.required = false;
   reviewSubmit.disabled = true;
@@ -29,6 +32,16 @@
   formOpenButton.onclick = function(evt) {
     evt.preventDefault();
     formContainer.classList.remove('invisible');
+    if (cookieName) {
+      formReviewName.value = cookieName;
+      formReviewText.focus();
+    } else {
+      formReviewName.focus();
+    }
+    if (cookieMark) {
+      reviewMark3.checked = false;
+      reviewMark[cookieMark - 1].checked = true;
+    }
   };
 
   formCloseButton.onclick = function(evt) {
