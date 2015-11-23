@@ -97,7 +97,7 @@
   };
 
   formReviewText.onchange = function() {
-    fillReviewText()
+    fillReviewText();
   };
 
   formElement.onsubmit = function() {
