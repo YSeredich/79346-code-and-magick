@@ -38,10 +38,10 @@
       clearTimeout(imageLoadTimeout);
       //тут может не работает потому что у меня адрес неправильный, мне же надо выйти из папки джс верно? Я вообще не очень понимаю что здесь творится с этими экранизациями
       element.style.avatarImage = 'url(\'' + avatarImage.src + '\')';
-    }
+    };
     avatarImage.onerror = function() {
       element.classList.add('review-load-failure');
-    }
+    };
     avatarImage.src = '/' + data.picture;
 
     var IMAGE_TIMEOUT = 10000;
