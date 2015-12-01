@@ -117,9 +117,7 @@
     requiredOrNotButton();
   };
 
-  formReviewText.onchange = function() {
-    fillReviewText();
-  };
+  formReviewText.onchange = fillReviewText;
 
   formElement.onsubmit = function() {
     var MY_LAST_BD = +new Date(2015, 6, 27);
