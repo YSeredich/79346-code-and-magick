@@ -29,6 +29,7 @@
     element.querySelector('.review-text').textContent = data.description;
 
     var defaultAuthor = element.querySelector('.review-author');
+    defaultAuthor.title = data.author.name;
     var avatarImage = new Image(124, 124);
     var IMAGE_TIMEOUT = 10000;
 
@@ -39,14 +40,16 @@
 
     avatarImage.onload = function() {
       clearTimeout(imageLoadTimeout);
-      element.replaceChild(avatarImage, defaultAuthor);
+    //  element.replaceChild(avatarImage, defaultAuthor);
+      element.style.avatarImage = 'url(\'' + avatarImage.src + '\')';
     };
 
     avatarImage.onerror = function() {
       element.classList.add('review-load-failure');
     };
 
-    avatarImage.src = data.author.picture;
+    avatarImage.src = '/' + data.author.picture;
+    avatarImage.title = data.author.name;
     return element;
   }
   reviewsFilter.classList.remove('invisible');
