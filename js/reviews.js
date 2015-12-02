@@ -40,15 +40,15 @@
 
     avatarImage.onload = function() {
       clearTimeout(imageLoadTimeout);
-    //  element.replaceChild(avatarImage, defaultAuthor);
-      element.style.avatarImage = 'url(\'' + avatarImage.src + '\')';
+      avatarImage.classList.add('review-author');
+      element.replaceChild(avatarImage, defaultAuthor);
     };
 
     avatarImage.onerror = function() {
       element.classList.add('review-load-failure');
     };
 
-    avatarImage.src = '/' + data.author.picture;
+    avatarImage.src = data.author.picture;
     avatarImage.title = data.author.name;
     return element;
   }
