@@ -8,19 +8,17 @@
   var container = document.querySelector('.reviews-list');
   reviewsFilter.classList.add('invisible');
 
-  //JSONP
-  /*
-  function addScript(src) {
-    var elem = document.createElement('script');
-    elem.src = src;
-    document.head.appendChild(elem);
-  }
-  addScript('data/reviews.js');
-*/
-
-  // XHR
-
   var reviews;
+// filter
+  /*
+  var filterReviews = function() {
+    var reviewAll = reviewsFilter['reviews-all'];
+    var reviewRecent = reviewsFilter['reviews-recent'];
+    var reviewGood = reviewsFilter['reviews-good'];
+    var reviewBad = reviewsFilter['reviews-bad'];
+    var reviewPopular = reviewsFilter['reviews-popular'];
+  };*/
+
   var drawingReviews = function() {
     reviews.forEach(function(review) {
       var element = getElementFromTemplate(review);
@@ -81,8 +79,13 @@
       drawingReviews();
     };
 
-    xhr.ontimeout = container.classList.add('reviews-load-failure');
-    xhr.onerror = container.classList.add('reviews-load-failure');
+    xhr.ontimeout = function() {
+      container.classList.add('reviews-load-failure');
+    };
+
+    xhr.onerror = function() {
+      container.classList.add('reviews-load-failure');
+    };
     xhr.send();
   };
   getReviews();
