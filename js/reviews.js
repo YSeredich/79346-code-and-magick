@@ -115,8 +115,10 @@
 
   var drawingReviews = function() {
     filteredArray.forEach(function(review) {
+      var fragment = document.createDocumentFragment();
       var element = getElementFromTemplate(review);
-      container.appendChild(element);
+      fragment.appendChild(element);
+      container.appendChild(fragment);
     });
     reviewsFilter.classList.remove('invisible');
   };
