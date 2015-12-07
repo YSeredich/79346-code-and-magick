@@ -20,7 +20,7 @@
       }
     }
 
-    var helpingArray = reviews.slice();
+    filteredArray = reviews.slice();
 
     function isGood(value) {
       return value.rating > 2;
@@ -33,8 +33,8 @@
     function isRecent(value) {
       var currentDate = new Date();
       var reviewDate = new Date(value.date);
-      var HALF_OF_YEAR = new Date(3600 * 24 * 183 * 1000);
-      return currentDate - reviewDate < +HALF_OF_YEAR;
+      var HALF_OF_YEAR = 3600 * 24 * 183 * 1000;
+      return currentDate - reviewDate < HALF_OF_YEAR;
     }
 
     function compareBadReviews(a, b) {
@@ -60,19 +60,19 @@
         filteredArray = reviews;
         break;
       case 'reviews-recent':
-        helpingArray = helpingArray.filter(isRecent);
-        filteredArray = helpingArray.sort(compareDate);
+        filteredArray = filteredArray.filter(isRecent);
+        filteredArray = filteredArray.sort(compareDate);
         break;
       case 'reviews-good':
-        helpingArray = helpingArray.filter(isGood);
-        filteredArray = helpingArray.sort(compareGoodReviews);
+        filteredArray = filteredArray.filter(isGood);
+        filteredArray = filteredArray.sort(compareGoodReviews);
         break;
       case 'reviews-bad':
-        helpingArray = helpingArray.filter(isBad);
-        filteredArray = helpingArray.sort(compareBadReviews);
+        filteredArray = filteredArray.filter(isBad);
+        filteredArray = filteredArray.sort(compareBadReviews);
         break;
       case 'reviews-popular':
-        filteredArray = helpingArray.sort(comparePopularity);
+        filteredArray = filteredArray.sort(comparePopularity);
         break;
     }
   };
