@@ -136,7 +136,7 @@
       filteringReviews(reviews);
       //отрисовка отзывов
       container.innerHTML = '';
-      drawingReviews(filteredArray);
+      drawingReviews();
     };
     xhr.ontimeout = function() {
       container.classList.add('reviews-load-failure');
@@ -153,7 +153,7 @@
     reviewFilter[i].onclick = function() {
       container.innerHTML = '';
       filteringReviews();
-      drawingReviews(filteredArray);
+      drawingReviews();
     };
   }
 })();
