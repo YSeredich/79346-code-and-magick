@@ -22,6 +22,7 @@
     }
 
     var helpingArray;
+    reviewsForSort = reviews.slice();
 
     function isGood(value) {
       return value.rating > 2;
@@ -130,7 +131,6 @@
     xhr.onload = function() {
       var stringData = xhr.responseText;
       reviews = JSON.parse(stringData);
-      reviewsForSort = reviews.slice();
       container.classList.remove('reviews-list-loading');
       //предварительная фильтрация отзывов
       filteringReviews(reviews);
