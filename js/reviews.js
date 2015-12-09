@@ -119,9 +119,9 @@
     pageOfReview.forEach(function(review) {
       var element = getElementFromTemplate(review);
       fragment.appendChild(element);
-      container.appendChild(fragment);
     });
     reviewsFilter.classList.remove('invisible');
+    container.appendChild(fragment);
   };
 
   var getReviews = function() {
