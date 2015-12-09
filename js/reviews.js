@@ -153,6 +153,7 @@
     currentFilterId = event.target.id;
     container.innerHTML = '';
     currentPage = 0;
+    wantMoreReviews.classList.remove('invisible');
     filteringReviews();
     drawingReviews(currentPage);
   };
@@ -161,5 +162,8 @@
     currentPage += 1;
     filteringReviews();
     drawingReviews(currentPage);
+    if (filteredArray.length < currentPage * ONE_PAGE ) {
+      wantMoreReviews.classList.add('invisible');
+    }
   };
 })();
