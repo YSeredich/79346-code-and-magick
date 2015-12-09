@@ -6,13 +6,16 @@
 
   var reviewsFilter = document.querySelector('.reviews-filter');
   var container = document.querySelector('.reviews-list');
+  var wantMoreReviews = document.querySelector('.reviews-controls-more');
   var reviews;
   var filteredArray;
   var currentPage = 0;
   var ONE_PAGE = 3;
+  var currentFilterId = 0;
+  wantMoreReviews.classList.remove('invisible');
 
   reviewsFilter.classList.add('invisible');
-  var filteringReviews = function(currentFilterId) {
+  var filteringReviews = function() {
     filteredArray = reviews.slice();
 
     function isGood(value) {
@@ -107,7 +110,6 @@
   };
 
   var drawingReviews = function(pageNumber) {
-    container.innerHTML = '';
     var fragment = document.createDocumentFragment();
 
     var from = pageNumber * ONE_PAGE;
@@ -132,7 +134,7 @@
       reviews = JSON.parse(stringData);
       container.classList.remove('reviews-list-loading');
       //предварительная фильтрация отзывов
-      filteringReviews(0);
+      filteringReviews();
       //отрисовка отзывов
       drawingReviews(currentPage);
     };
@@ -148,8 +150,16 @@
   getReviews();
 
   reviewsFilter.onclick = function(event) {
-    var currentFilterId = event.target.id;
-    filteringReviews(currentFilterId);
+    currentFilterId = event.target.id;
+    container.innerHTML = '';
+    currentPage = 0;
+    filteringReviews();
+    drawingReviews(currentPage);
+  };
+
+  wantMoreReviews.onclick = function() {
+    currentPage += 1;
+    filteringReviews();
     drawingReviews(currentPage);
   };
 })();
