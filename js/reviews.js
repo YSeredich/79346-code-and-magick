@@ -9,6 +9,8 @@
   var reviews;
   var filteredArray;
   var reviewFilter = document.getElementsByName('reviews');
+  var currentPage = 0;
+  var ONE_PAGE = 3;
 
   reviewsFilter.classList.add('invisible');
   var filteringReviews = function() {
@@ -113,9 +115,15 @@
     return element;
   };
 
-  var drawingReviews = function() {
-    filteredArray.forEach(function(review) {
-      var fragment = document.createDocumentFragment();
+  var drawingReviews = function(pageNumber) {
+    container.innerHTML = '';
+    var fragment = document.createDocumentFragment();
+
+    var from = pageNumber * ONE_PAGE;
+    var to = from + ONE_PAGE;
+    var pageOfReview = filteredArray.slice(from, to);
+
+    pageOfReview.forEach(function(review) {
       var element = getElementFromTemplate(review);
       fragment.appendChild(element);
       container.appendChild(fragment);
@@ -135,8 +143,7 @@
       //предварительная фильтрация отзывов
       filteringReviews(reviews);
       //отрисовка отзывов
-      container.innerHTML = '';
-      drawingReviews();
+      drawingReviews(currentPage);
     };
     xhr.ontimeout = function() {
       container.classList.add('reviews-load-failure');
@@ -151,9 +158,8 @@
 
   for (var i = 0; i < reviewFilter.length; i++) {
     reviewFilter[i].onclick = function() {
-      container.innerHTML = '';
       filteringReviews();
-      drawingReviews();
+      drawingReviews(currentPage);
     };
   }
 })();
