@@ -6,21 +6,17 @@
 
   var reviewsFilter = document.querySelector('.reviews-filter');
   var container = document.querySelector('.reviews-list');
+  var wantMoreReviews = document.querySelector('.reviews-controls-more');
   var reviews;
   var filteredArray;
-  var reviewFilter = document.getElementsByName('reviews');
+  var currentPage = 0;
+  var ONE_PAGE = 3;
+  var currentFilterId = 0;
+  wantMoreReviews.classList.remove('invisible');
 
   reviewsFilter.classList.add('invisible');
   var filteringReviews = function() {
-
-    for (var i = 0; i < reviewFilter.length; i++) {
-      if (reviewFilter[i].checked) {
-        var currentFilterId = reviewFilter[i].id;
-        break;
-      }
-    }
-
-    var helpingArray = reviews.slice();
+    filteredArray = reviews.slice();
 
     function isGood(value) {
       return value.rating > 2;
@@ -33,8 +29,8 @@
     function isRecent(value) {
       var currentDate = new Date();
       var reviewDate = new Date(value.date);
-      var HALF_OF_YEAR = new Date(3600 * 24 * 183 * 1000);
-      return currentDate - reviewDate < +HALF_OF_YEAR;
+      var HALF_OF_YEAR = 3600 * 24 * 183 * 1000;
+      return currentDate - reviewDate < HALF_OF_YEAR;
     }
 
     function compareBadReviews(a, b) {
@@ -60,19 +56,19 @@
         filteredArray = reviews;
         break;
       case 'reviews-recent':
-        helpingArray = helpingArray.filter(isRecent);
-        filteredArray = helpingArray.sort(compareDate);
+        filteredArray = filteredArray.filter(isRecent);
+        filteredArray = filteredArray.sort(compareDate);
         break;
       case 'reviews-good':
-        helpingArray = helpingArray.filter(isGood);
-        filteredArray = helpingArray.sort(compareGoodReviews);
+        filteredArray = filteredArray.filter(isGood);
+        filteredArray = filteredArray.sort(compareGoodReviews);
         break;
       case 'reviews-bad':
-        helpingArray = helpingArray.filter(isBad);
-        filteredArray = helpingArray.sort(compareBadReviews);
+        filteredArray = filteredArray.filter(isBad);
+        filteredArray = filteredArray.sort(compareBadReviews);
         break;
       case 'reviews-popular':
-        filteredArray = helpingArray.sort(comparePopularity);
+        filteredArray = filteredArray.sort(comparePopularity);
         break;
     }
   };
@@ -113,14 +109,19 @@
     return element;
   };
 
-  var drawingReviews = function() {
-    filteredArray.forEach(function(review) {
-      var fragment = document.createDocumentFragment();
+  var drawingReviews = function(pageNumber) {
+    var fragment = document.createDocumentFragment();
+
+    var from = pageNumber * ONE_PAGE;
+    var to = from + ONE_PAGE;
+    var pageOfReview = filteredArray.slice(from, to);
+
+    pageOfReview.forEach(function(review) {
       var element = getElementFromTemplate(review);
       fragment.appendChild(element);
-      container.appendChild(fragment);
     });
     reviewsFilter.classList.remove('invisible');
+    container.appendChild(fragment);
   };
 
   var getReviews = function() {
@@ -133,10 +134,9 @@
       reviews = JSON.parse(stringData);
       container.classList.remove('reviews-list-loading');
       //предварительная фильтрация отзывов
-      filteringReviews(reviews);
+      filteringReviews();
       //отрисовка отзывов
-      container.innerHTML = '';
-      drawingReviews();
+      drawingReviews(currentPage);
     };
     xhr.ontimeout = function() {
       container.classList.add('reviews-load-failure');
@@ -149,11 +149,21 @@
 
   getReviews();
 
-  for (var i = 0; i < reviewFilter.length; i++) {
-    reviewFilter[i].onclick = function() {
-      container.innerHTML = '';
-      filteringReviews();
-      drawingReviews();
-    };
-  }
+  reviewsFilter.onclick = function(event) {
+    currentFilterId = event.target.id;
+    container.innerHTML = '';
+    currentPage = 0;
+    wantMoreReviews.classList.remove('invisible');
+    filteringReviews();
+    drawingReviews(currentPage);
+  };
+
+  wantMoreReviews.onclick = function() {
+    currentPage += 1;
+    filteringReviews();
+    if (filteredArray.length <= (currentPage + 1) * ONE_PAGE ) {
+      wantMoreReviews.classList.add('invisible');
+    }
+    drawingReviews(currentPage);
+  };
 })();
