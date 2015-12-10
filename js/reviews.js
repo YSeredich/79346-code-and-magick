@@ -161,9 +161,9 @@
   wantMoreReviews.onclick = function() {
     currentPage += 1;
     filteringReviews();
-    drawingReviews(currentPage);
-    if (filteredArray.length < currentPage * ONE_PAGE ) {
+    if (filteredArray.length < (currentPage + 1) * ONE_PAGE ) {
       wantMoreReviews.classList.add('invisible');
     }
+    drawingReviews(currentPage);
   };
 })();
