@@ -1,16 +1,24 @@
 'use strict';
 
 (function() {
-  // модуль смещения облаков при скролле
+  // действия при скролле
   var clouds = document.querySelector('.header-clouds');
+  var scrollTimeout;
   window.addEventListener('scroll', function() {
-    var cloudsStyle = getComputedStyle(clouds);
-    var cloudsPositionX = cloudsStyle.backgroundPositionX;
-    cloudsPositionX = parseInt(cloudsPositionX, 10);
-    cloudsPositionX = cloudsPositionX + 10;
-    clouds.style.backgroundPositionX = cloudsPositionX + 'px';
-   // var cloudsLocation = clouds.getBoundingClientRect();
-    //var viewportHeight = window.innerHeight;
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(function() {
+      var cloudsLocation = clouds.getBoundingClientRect();
+      var viewportHeight = window.innerHeight;
+      //проверка видимости блока с облаками
+      if (cloudsLocation.bottom > 0) {
+        //смещение облаков при скролле
+        var cloudsStyle = getComputedStyle(clouds);
+        var cloudsPositionX = cloudsStyle.backgroundPositionX;
+        cloudsPositionX = parseInt(cloudsPositionX, 10);
+        cloudsPositionX = cloudsPositionX + 10;
+        clouds.style.backgroundPositionX = cloudsPositionX + 'px';
+      }
+    }, 100);
   });
 
   /**
