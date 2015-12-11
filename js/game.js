@@ -1,23 +1,29 @@
 'use strict';
 
 (function() {
-  // действия при скролле
+  //6.2 действия при скролле
   var clouds = document.querySelector('.header-clouds');
+  var demo = document.querySelector('.demo');
   var scrollTimeout;
   window.addEventListener('scroll', function() {
     clearTimeout(scrollTimeout);
     scrollTimeout = setTimeout(function() {
+      //6.2.3 проверка видимости блока с игрушкой
+      var demoLocation = demo.getBoundingClientRect();
+      if (demoLocation.bottom < 0) {
+        game.setGameStatus(window.Game.Verdict.PAUSE);
+      }
+      //6.2.2 проверка видимости блока с облаками
       var cloudsLocation = clouds.getBoundingClientRect();
-      //var viewportHeight = window.innerHeight;
-      //проверка видимости блока с облаками
       if (cloudsLocation.bottom > 0) {
-        //смещение облаков при скролле
+        //6.2.1 смещение облаков при скролле
         var cloudsStyle = getComputedStyle(clouds);
         var cloudsPositionX = cloudsStyle.backgroundPositionX;
         cloudsPositionX = parseInt(cloudsPositionX, 10);
         cloudsPositionX = cloudsPositionX + 10;
         clouds.style.backgroundPositionX = cloudsPositionX + 'px';
       }
+
     }, 100);
   });
 
