@@ -8,7 +8,7 @@
     clearTimeout(scrollTimeout);
     scrollTimeout = setTimeout(function() {
       var cloudsLocation = clouds.getBoundingClientRect();
-      var viewportHeight = window.innerHeight;
+      //var viewportHeight = window.innerHeight;
       //проверка видимости блока с облаками
       if (cloudsLocation.bottom > 0) {
         //смещение облаков при скролле
