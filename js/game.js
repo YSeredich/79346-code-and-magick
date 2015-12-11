@@ -20,7 +20,7 @@
         var cloudsStyle = getComputedStyle(clouds);
         var cloudsPositionX = cloudsStyle.backgroundPositionX;
         cloudsPositionX = parseInt(cloudsPositionX, 10);
-        cloudsPositionX = cloudsPositionX + 10;
+        cloudsPositionX = cloudsPositionX + 1;
         clouds.style.backgroundPositionX = cloudsPositionX + 'px';
       }
 
