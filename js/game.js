@@ -17,11 +17,7 @@
       var cloudsLocation = clouds.getBoundingClientRect();
       if (cloudsLocation.bottom > 0) {
         //6.2.1 смещение облаков при скролле
-        var cloudsStyle = getComputedStyle(clouds);
-        var cloudsPositionX = cloudsStyle.backgroundPositionX;
-        cloudsPositionX = parseInt(cloudsPositionX, 10);
-        cloudsPositionX = cloudsPositionX + 1;
-        clouds.style.backgroundPositionX = cloudsPositionX + 'px';
+        clouds.style.backgroundPositionX = cloudsLocation.bottom + 'px';
       }
 
     }, 100);
