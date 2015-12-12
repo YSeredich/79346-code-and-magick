@@ -1,6 +1,7 @@
 /**
  * Created by Julia on 27.11.2015.
  */
+/* global Review: true */
 'use strict';
 (function() {
 
@@ -73,43 +74,13 @@
     }
   };
 
-  var getElementFromTemplate = function(data) {
-    var template = document.querySelector('#review-template');
-    var element;
-    if ('content' in template) {
-      element = template.content.children[0].cloneNode(true);
-    } else {
-      element = template.children[0].cloneNode(true);
+  var drawingReviews = function(pageNumber, remove) {
+    if (remove) {
+      var renderedElements = container.querySelectorAll('.review');
+      [].forEach.call(renderedElements, function(element) {
+        container.removeChild(element);
+      });
     }
-    element.querySelector('.review-rating').textContent = data.rating;
-    element.querySelector('.review-text').textContent = data.description;
-
-    var defaultAuthor = element.querySelector('.review-author');
-    defaultAuthor.title = data.author.name;
-    var avatarImage = new Image(124, 124);
-    var IMAGE_TIMEOUT = 10000;
-
-    var imageLoadTimeout = setTimeout(function() {
-      avatarImage.src = '';
-      element.classList.add('review-load-failure');
-    }, IMAGE_TIMEOUT);
-
-    avatarImage.onload = function() {
-      clearTimeout(imageLoadTimeout);
-      avatarImage.classList.add('review-author');
-      element.replaceChild(avatarImage, defaultAuthor);
-    };
-
-    avatarImage.onerror = function() {
-      element.classList.add('review-load-failure');
-    };
-
-    avatarImage.src = data.author.picture;
-    avatarImage.title = data.author.name;
-    return element;
-  };
-
-  var drawingReviews = function(pageNumber) {
     var fragment = document.createDocumentFragment();
 
     var from = pageNumber * ONE_PAGE;
@@ -117,8 +88,9 @@
     var pageOfReview = filteredArray.slice(from, to);
 
     pageOfReview.forEach(function(review) {
-      var element = getElementFromTemplate(review);
-      fragment.appendChild(element);
+      var reviewElement = new Review(review);
+      reviewElement.render();
+      fragment.appendChild(reviewElement.element);
     });
     reviewsFilter.classList.remove('invisible');
     container.appendChild(fragment);
@@ -136,7 +108,7 @@
       //предварительная фильтрация отзывов
       filteringReviews();
       //отрисовка отзывов
-      drawingReviews(currentPage);
+      drawingReviews(currentPage, false);
     };
     xhr.ontimeout = function() {
       container.classList.add('reviews-load-failure');
@@ -151,11 +123,10 @@
 
   reviewsFilter.onclick = function(event) {
     currentFilterId = event.target.id;
-    container.innerHTML = '';
     currentPage = 0;
     wantMoreReviews.classList.remove('invisible');
     filteringReviews();
-    drawingReviews(currentPage);
+    drawingReviews(currentPage, true);
   };
 
   wantMoreReviews.onclick = function() {
@@ -164,6 +135,6 @@
     if (filteredArray.length <= (currentPage + 1) * ONE_PAGE ) {
       wantMoreReviews.classList.add('invisible');
     }
-    drawingReviews(currentPage);
+    drawingReviews(currentPage, false);
   };
 })();

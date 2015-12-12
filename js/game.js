@@ -19,7 +19,6 @@
         //6.2.1 смещение облаков при скролле
         clouds.style.backgroundPositionX = cloudsLocation.bottom + 'px';
       }
-
     }, 100);
   });
 
