@@ -1,6 +1,28 @@
 'use strict';
 
 (function() {
+  //6.2 действия при скролле
+  var clouds = document.querySelector('.header-clouds');
+  var demo = document.querySelector('.demo');
+  var scrollTimeout;
+  window.addEventListener('scroll', function() {
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(function() {
+      //6.2.3 проверка видимости блока с игрушкой
+      var demoLocation = demo.getBoundingClientRect();
+      if (demoLocation.bottom < 0) {
+        game.setGameStatus(window.Game.Verdict.PAUSE);
+      }
+      //6.2.2 проверка видимости блока с облаками
+      var cloudsLocation = clouds.getBoundingClientRect();
+      if (cloudsLocation.bottom > 0) {
+        //6.2.1 смещение облаков при скролле
+        clouds.style.backgroundPositionX = cloudsLocation.bottom + 'px';
+      }
+
+    }, 100);
+  });
+
   /**
    * @const
    * @type {number}
@@ -493,10 +515,10 @@
 
     /**
      * Обновление статуса объектов на экране. Добавляет объекты, которые должны
-     * появиться, выполняет проверку поведения всех объектов и удаляет те, которые
-     * должны исчезнуть.
-     * @param {number} delta Время, прошеднее с отрисовки прошлого кадра.
-     */
+    * появиться, выполняет проверку поведения всех объектов и удаляет те, которые
+    * должны исчезнуть.
+    * @param {number} delta Время, прошеднее с отрисовки прошлого кадра.
+    */
     updateObjects: function(delta) {
       // Персонаж.
       var me = this.state.objects.filter(function(object) {
