@@ -1,7 +1,7 @@
 /**
  * Created by Julia on 27.11.2015.
  */
-/* global Review: true */
+/* global Review: true*/
 'use strict';
 (function() {
 
