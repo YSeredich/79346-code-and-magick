@@ -12,7 +12,7 @@
   var filteredArray;
   var currentPage = 0;
   /**
-   *
+   * Количество отзывов из которого состоит одна страница
    * @const {number}
    */
   var ONE_PAGE = 3;
@@ -22,13 +22,14 @@
   reviewsFilter.classList.add('invisible');
 
   /**
+   * Функция для фильтрации отзывов
    * @function
    */
   var filteringReviews = function() {
     filteredArray = reviews.slice();
 
     /**
-     *
+     * Функция определяет хороший ли отзыв
      * @param {Object} value
      * @returns {boolean}
      */
@@ -37,7 +38,7 @@
     }
 
     /**
-     *
+     * Функция определяет плохой ли отзыв
      * @param {Object} value
      * @returns {boolean}
      */
@@ -46,7 +47,7 @@
     }
 
     /**
-     *
+     * Функция определяет давность отзыва
      * @param {Object} value
      * @returns {boolean}
      */
@@ -62,7 +63,7 @@
        */
       var reviewDate = new Date(value.date);
       /**
-       *
+       * Количество миллисекунд в полугоде
        * @const {number}
        */
       var HALF_OF_YEAR = 3600 * 24 * 183 * 1000;
@@ -70,7 +71,7 @@
     }
 
     /**
-     *
+     * Функция сортирует плохие отзывы по возрастанию их оценки
      * @param {Object} a
      * @param {Object} b
      * @returns {number}
@@ -80,7 +81,7 @@
     }
 
     /**
-     *
+     * Функция сортирует хорошие отзывы по убыванию их оценки
      * @param {Object} a
      * @param {Object} b
      * @returns {number}
@@ -90,7 +91,7 @@
     }
 
     /**
-     *
+     * Функция сортирует отзывы по убыванию их популярности
      * @param {Object} a
      * @param {Object} b
      * @returns {number}
@@ -100,7 +101,7 @@
     }
 
     /**
-     *
+     * Функция сортирует отзывы по дате и вначале показывает самые свежие отзывы
      * @param {Object} a
      * @param {Object} b
      * @returns {number}
@@ -134,7 +135,7 @@
   };
 
   /**
-   *
+   * Функция отрисовки отзывов
    * @param {number} pageNumber
    * @param {boolean} remove
    */
@@ -186,7 +187,7 @@
   getReviews();
 
   /**
-   *
+   * Обработчик события клика по блоку с фильтрами
    * @param {Event} event
    */
   reviewsFilter.onclick = function(event) {

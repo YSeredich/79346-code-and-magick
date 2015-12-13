@@ -6,6 +6,9 @@
   var demo = document.querySelector('.demo');
   var scrollTimeout;
 
+  /**
+   * Обработчик скролла, приводящий в движения блок с облаками
+   */
   window.addEventListener('scroll', function() {
     clearTimeout(scrollTimeout);
     scrollTimeout = setTimeout(function() {
@@ -278,7 +281,7 @@
   };
 
   /**
-   *
+   * Функция, непосредвенно рисующая тект на холсте
    * @param context
    * @param {string} text
    * @param {number} mLeft
@@ -443,7 +446,7 @@
     },
 
     /**
-     * Отрисовка экрана паузы
+     * Отрисовка экрана паузы с различными сообщениями
      * @private
      */
     _drawPauseScreen: function() {

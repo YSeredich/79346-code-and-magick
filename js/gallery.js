@@ -4,7 +4,7 @@
 'use strict';
 ( function() {
   /**
-   *
+   * Конструктор галереи
    * @constructor
    */
   function Gallery() {
@@ -19,7 +19,9 @@
     this._onDocumentKeyDown = this._onDocumentKeyDown.bind(this);
   }
 
-  // показать галерею и добавить подписки на события, которые отслеживает галерея
+  /**
+   * показать галерею и добавить подписки на события, которые отслеживает галерея
+   */
   Gallery.prototype.show = function() {
     this.element.classList.remove('invisible');
 
@@ -30,7 +32,9 @@
 
   };
 
-  // спрятать галерею и убрать подписки на события, которые отслеживает галерея
+  /**
+   * спрятать галерею и убрать подписки на события, которые отслеживает галерея
+   */
   Gallery.prototype.hide = function() {
     this.element.classList.add('invisible');
 
@@ -41,7 +45,7 @@
   };
 
   /**
-   *
+   * Обработчик события клика по кнопке, закрывающей галерею
    * @private
    */
   Gallery.prototype._onCloseClick = function() {
@@ -49,7 +53,7 @@
   };
 
   /**
-   *
+   * Обработчик события клика на Esc
    * @param {Event} event
    * @private
    */
@@ -60,7 +64,7 @@
   };
 
   /**
-   *
+   * Обработчик события клика по кнопке "предыдущее фото" в галерее
    * @private
    */
   Gallery.prototype._onLeftClick = function() {
@@ -68,7 +72,7 @@
   };
 
   /**
-   *
+   * Обработчик события клика по кнопке "следующее фото" в галерее
    * @private
    */
   Gallery.prototype._onRightClick = function() {
@@ -83,7 +87,7 @@
   var photogallery = document.querySelector('.photogallery');
 
   /**
-   *
+   * Обработчик события клика на фотографии фотогалереи
    * @param {Event} event
    */
   photogallery.onclick = function(event) {

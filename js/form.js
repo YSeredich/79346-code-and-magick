@@ -25,6 +25,9 @@
   var cookieMark = docCookies.getItem('mark');
 
   /**
+   * Функция смотрит валидны ли введенные в форму данные.
+   * Если валидны - делает кнопку отправки формы активной,
+   * если нет - деактивирует кнопку.
    * @function
    */
   function requiredOrNotButton() {
@@ -40,6 +43,9 @@
   }
 
   /**
+   * Функция проверяет необходимо ли для валидности формы наличие отзыва
+   * и написан ли он. В зависимости от ответа на эти вопросы меняет поле подсказок
+   * и состояние кнопки отправки формы.
    * @function
    */
   function fillReviewText() {
@@ -55,7 +61,7 @@
   reviewSubmit.disabled = true;
 
   /**
-   *
+   * Обработка события клика по кнопке "Добавить свой"
    * @param {Event} evt
    */
   formOpenButton.onclick = function(evt) {
@@ -85,7 +91,7 @@
   };
 
   /**
-   *
+   * Обработка события клика по кнопке, закрывающей форму
    * @param {Event} evt
    */
   formCloseButton.onclick = function(evt) {
@@ -135,7 +141,8 @@
 
   formElement.onsubmit = function() {
     /**
-     *
+     * Постоянная, равная количеству миллисекунд прошедших
+     * с моего последнего дня рождения
      * @const {number}
      */
     var MY_LAST_BD = +new Date(2015, 6, 27);

@@ -4,7 +4,7 @@
 'use strict';
 ( function() {
   /**
-   *
+   * Конструктор отзыва
    * @param {Object} data
    * @constructor
    */
@@ -26,7 +26,7 @@
     defaultAuthor.title = this._data.author.name;
     var avatarImage = new Image(124, 124);
     /**
-     *
+     * Постоянная таймаут
      * @const {number}
      */
     var IMAGE_TIMEOUT = 10000;
@@ -51,6 +51,7 @@
   };
 
   /**
+   * Вывод конструктора отзывов в глобальную область видимости
    * @global
    * @type {Review}
    */
