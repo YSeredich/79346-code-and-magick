@@ -11,41 +11,101 @@
   var reviews;
   var filteredArray;
   var currentPage = 0;
+  /**
+   * Количество отзывов из которого состоит одна страница
+   * @const {number}
+   */
   var ONE_PAGE = 3;
   var currentFilterId = 0;
   wantMoreReviews.classList.remove('invisible');
 
   reviewsFilter.classList.add('invisible');
+
+  /**
+   * Функция для фильтрации отзывов
+   * @function
+   */
   var filteringReviews = function() {
     filteredArray = reviews.slice();
 
+    /**
+     * Функция определяет хороший ли отзыв
+     * @param {Object} value
+     * @returns {boolean}
+     */
     function isGood(value) {
       return value.rating > 2;
     }
 
+    /**
+     * Функция определяет плохой ли отзыв
+     * @param {Object} value
+     * @returns {boolean}
+     */
     function isBad(value) {
       return value.rating < 3;
     }
 
+    /**
+     * Функция определяет давность отзыва
+     * @param {Object} value
+     * @returns {boolean}
+     */
     function isRecent(value) {
+      /**
+       *
+       * @type {Date}
+       */
       var currentDate = new Date();
+      /**
+       *
+       * @type {Date}
+       */
       var reviewDate = new Date(value.date);
+      /**
+       * Количество миллисекунд в полугоде
+       * @const {number}
+       */
       var HALF_OF_YEAR = 3600 * 24 * 183 * 1000;
       return currentDate - reviewDate < HALF_OF_YEAR;
     }
 
+    /**
+     * Функция сортирует плохие отзывы по возрастанию их оценки
+     * @param {Object} a
+     * @param {Object} b
+     * @returns {number}
+     */
     function compareBadReviews(a, b) {
       return a.rating - b.rating;
     }
 
+    /**
+     * Функция сортирует хорошие отзывы по убыванию их оценки
+     * @param {Object} a
+     * @param {Object} b
+     * @returns {number}
+     */
     function compareGoodReviews(a, b) {
       return b.rating - a.rating;
     }
 
+    /**
+     * Функция сортирует отзывы по убыванию их популярности
+     * @param {Object} a
+     * @param {Object} b
+     * @returns {number}
+     */
     function comparePopularity(a, b) {
       return b.reviewRating - a.reviewRating;
     }
 
+    /**
+     * Функция сортирует отзывы по дате и вначале показывает самые свежие отзывы
+     * @param {Object} a
+     * @param {Object} b
+     * @returns {number}
+     */
     function compareDate(a, b) {
       var bDate = new Date(b.date);
       var aDate = new Date(a.date);
@@ -74,6 +134,11 @@
     }
   };
 
+  /**
+   * Функция отрисовки отзывов
+   * @param {number} pageNumber
+   * @param {boolean} remove
+   */
   var drawingReviews = function(pageNumber, remove) {
     if (remove) {
       var renderedElements = container.querySelectorAll('.review');
@@ -121,6 +186,10 @@
 
   getReviews();
 
+  /**
+   * Обработчик события клика по блоку с фильтрами
+   * @param {Event} event
+   */
   reviewsFilter.onclick = function(event) {
     currentFilterId = event.target.id;
     currentPage = 0;

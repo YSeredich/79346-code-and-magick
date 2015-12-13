@@ -3,6 +3,10 @@
  */
 'use strict';
 ( function() {
+  /**
+   * Конструктор галереи
+   * @constructor
+   */
   function Gallery() {
     this.element = document.querySelector('.overlay-gallery');
     this._closeButton = document.querySelector('.overlay-gallery-close');
@@ -15,7 +19,9 @@
     this._onDocumentKeyDown = this._onDocumentKeyDown.bind(this);
   }
 
-  // показать галерею и добавить подписки на события, которые отслеживает галерея
+  /**
+   * показать галерею и добавить подписки на события, которые отслеживает галерея
+   */
   Gallery.prototype.show = function() {
     this.element.classList.remove('invisible');
 
@@ -26,7 +32,9 @@
 
   };
 
-  // спрятать галерею и убрать подписки на события, которые отслеживает галерея
+  /**
+   * спрятать галерею и убрать подписки на события, которые отслеживает галерея
+   */
   Gallery.prototype.hide = function() {
     this.element.classList.add('invisible');
 
@@ -36,27 +44,52 @@
     window.removeEventListener('keydown', this._onDocumentKeyDown);
   };
 
+  /**
+   * Обработчик события клика по кнопке, закрывающей галерею
+   * @private
+   */
   Gallery.prototype._onCloseClick = function() {
     this.hide();
   };
 
+  /**
+   * Обработчик события клика на Esc
+   * @param {Event} event
+   * @private
+   */
   Gallery.prototype._onDocumentKeyDown = function(event) {
     if (event.keyCode === 27) {
       this.hide();
     }
   };
 
+  /**
+   * Обработчик события клика по кнопке "предыдущее фото" в галерее
+   * @private
+   */
   Gallery.prototype._onLeftClick = function() {
     console.log('I am work');
   };
 
+  /**
+   * Обработчик события клика по кнопке "следующее фото" в галерее
+   * @private
+   */
   Gallery.prototype._onRightClick = function() {
     console.log('I am work, too');
   };
 
+  /**
+   *
+   * @type {Gallery}
+   */
   var gallery = new Gallery();
   var photogallery = document.querySelector('.photogallery');
 
+  /**
+   * Обработчик события клика на фотографии фотогалереи
+   * @param {Event} event
+   */
   photogallery.onclick = function(event) {
     var clickedElement = event.target;
     if (clickedElement.tagName === 'IMG') {

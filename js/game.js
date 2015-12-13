@@ -1,22 +1,23 @@
 'use strict';
 
 (function() {
-  //6.2 действия при скролле
+
   var clouds = document.querySelector('.header-clouds');
   var demo = document.querySelector('.demo');
   var scrollTimeout;
+
+  /**
+   * Обработчик скролла, приводящий в движения блок с облаками
+   */
   window.addEventListener('scroll', function() {
     clearTimeout(scrollTimeout);
     scrollTimeout = setTimeout(function() {
-      //6.2.3 проверка видимости блока с игрушкой
       var demoLocation = demo.getBoundingClientRect();
       if (demoLocation.bottom < 0) {
         game.setGameStatus(window.Game.Verdict.PAUSE);
       }
-      //6.2.2 проверка видимости блока с облаками
       var cloudsLocation = clouds.getBoundingClientRect();
       if (cloudsLocation.bottom > 0) {
-        //6.2.1 смещение облаков при скролле
         clouds.style.backgroundPositionX = cloudsLocation.bottom + 'px';
       }
     }, 100);
@@ -279,6 +280,15 @@
     this._pauseListener = this._pauseListener.bind(this);
   };
 
+  /**
+   * Функция, непосредвенно рисующая тект на холсте
+   * @param context
+   * @param {string} text
+   * @param {number} mLeft
+   * @param {number} mTop
+   * @param {number} maxWidth
+   * @param {number} lineHeight
+   */
   function drawMessageScrean(context, text, mLeft, mTop, maxWidth, lineHeight) {
     var words = text.split(' ');
     var countWords = words.length;
@@ -436,7 +446,8 @@
     },
 
     /**
-     * Отрисовка экрана паузы.
+     * Отрисовка экрана паузы с различными сообщениями
+     * @private
      */
     _drawPauseScreen: function() {
       var context = this.ctx;
