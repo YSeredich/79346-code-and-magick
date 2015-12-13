@@ -1,6 +1,12 @@
 /**
  * Created by Julia on 12.11.2015.
  */
+/**
+ *
+ * @param {boolean|number|Object} a
+ * @param  {*} b
+ * @returns {string}
+ */
 function getMessage(a,b) {
   var message;
 

@@ -3,6 +3,11 @@
  */
 'use strict';
 ( function() {
+  /**
+   *
+   * @param {Object} data
+   * @constructor
+   */
   function Review(data) {
     this._data = data;
   }
@@ -20,6 +25,10 @@
     var defaultAuthor = this.element.querySelector('.review-author');
     defaultAuthor.title = this._data.author.name;
     var avatarImage = new Image(124, 124);
+    /**
+     *
+     * @const {number}
+     */
     var IMAGE_TIMEOUT = 10000;
 
     var imageLoadTimeout = setTimeout(function() {
@@ -41,5 +50,9 @@
     avatarImage.title = this._data.author.name;
   };
 
+  /**
+   * @global
+   * @type {Review}
+   */
   window.Review = Review;
 })();

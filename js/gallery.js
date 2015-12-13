@@ -3,6 +3,10 @@
  */
 'use strict';
 ( function() {
+  /**
+   *
+   * @constructor
+   */
   function Gallery() {
     this.element = document.querySelector('.overlay-gallery');
     this._closeButton = document.querySelector('.overlay-gallery-close');
@@ -36,27 +40,52 @@
     window.removeEventListener('keydown', this._onDocumentKeyDown);
   };
 
+  /**
+   *
+   * @private
+   */
   Gallery.prototype._onCloseClick = function() {
     this.hide();
   };
 
+  /**
+   *
+   * @param {Event} event
+   * @private
+   */
   Gallery.prototype._onDocumentKeyDown = function(event) {
     if (event.keyCode === 27) {
       this.hide();
     }
   };
 
+  /**
+   *
+   * @private
+   */
   Gallery.prototype._onLeftClick = function() {
     console.log('I am work');
   };
 
+  /**
+   *
+   * @private
+   */
   Gallery.prototype._onRightClick = function() {
     console.log('I am work, too');
   };
 
+  /**
+   *
+   * @type {Gallery}
+   */
   var gallery = new Gallery();
   var photogallery = document.querySelector('.photogallery');
 
+  /**
+   *
+   * @param {Event} event
+   */
   photogallery.onclick = function(event) {
     var clickedElement = event.target;
     if (clickedElement.tagName === 'IMG') {

@@ -11,41 +11,100 @@
   var reviews;
   var filteredArray;
   var currentPage = 0;
+  /**
+   *
+   * @const {number}
+   */
   var ONE_PAGE = 3;
   var currentFilterId = 0;
   wantMoreReviews.classList.remove('invisible');
 
   reviewsFilter.classList.add('invisible');
+
+  /**
+   * @function
+   */
   var filteringReviews = function() {
     filteredArray = reviews.slice();
 
+    /**
+     *
+     * @param {Object} value
+     * @returns {boolean}
+     */
     function isGood(value) {
       return value.rating > 2;
     }
 
+    /**
+     *
+     * @param {Object} value
+     * @returns {boolean}
+     */
     function isBad(value) {
       return value.rating < 3;
     }
 
+    /**
+     *
+     * @param {Object} value
+     * @returns {boolean}
+     */
     function isRecent(value) {
+      /**
+       *
+       * @type {Date}
+       */
       var currentDate = new Date();
+      /**
+       *
+       * @type {Date}
+       */
       var reviewDate = new Date(value.date);
+      /**
+       *
+       * @const {number}
+       */
       var HALF_OF_YEAR = 3600 * 24 * 183 * 1000;
       return currentDate - reviewDate < HALF_OF_YEAR;
     }
 
+    /**
+     *
+     * @param {Object} a
+     * @param {Object} b
+     * @returns {number}
+     */
     function compareBadReviews(a, b) {
       return a.rating - b.rating;
     }
 
+    /**
+     *
+     * @param {Object} a
+     * @param {Object} b
+     * @returns {number}
+     */
     function compareGoodReviews(a, b) {
       return b.rating - a.rating;
     }
 
+    /**
+     *
+     * @param {Object} a
+     * @param {Object} b
+     * @returns {number}
+     */
     function comparePopularity(a, b) {
       return b.reviewRating - a.reviewRating;
     }
 
+    /**
+     *
+     * @param {Object} a
+     * @param {Object} b
+     * @returns {number}
+     */
     function compareDate(a, b) {
       var bDate = new Date(b.date);
       var aDate = new Date(a.date);
@@ -74,6 +133,11 @@
     }
   };
 
+  /**
+   *
+   * @param {number} pageNumber
+   * @param {boolean} remove
+   */
   var drawingReviews = function(pageNumber, remove) {
     if (remove) {
       var renderedElements = container.querySelectorAll('.review');
@@ -121,6 +185,10 @@
 
   getReviews();
 
+  /**
+   *
+   * @param {Event} event
+   */
   reviewsFilter.onclick = function(event) {
     currentFilterId = event.target.id;
     currentPage = 0;

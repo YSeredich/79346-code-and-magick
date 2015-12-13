@@ -24,6 +24,9 @@
   var cookieName = docCookies.getItem('name');
   var cookieMark = docCookies.getItem('mark');
 
+  /**
+   * @function
+   */
   function requiredOrNotButton() {
     var contentName = formReviewName.value;
     var contentText = formReviewText.value;
@@ -36,6 +39,9 @@
     }
   }
 
+  /**
+   * @function
+   */
   function fillReviewText() {
     var contentText = formReviewText.value;
     if (contentText.length !== 0 || !formReviewText.required) {
@@ -48,6 +54,10 @@
 
   reviewSubmit.disabled = true;
 
+  /**
+   *
+   * @param {Event} evt
+   */
   formOpenButton.onclick = function(evt) {
     evt.preventDefault();
     formContainer.classList.remove('invisible');
@@ -74,6 +84,10 @@
     }
   };
 
+  /**
+   *
+   * @param {Event} evt
+   */
   formCloseButton.onclick = function(evt) {
     evt.preventDefault();
     formContainer.classList.add('invisible');
@@ -120,6 +134,10 @@
   formReviewText.onchange = fillReviewText;
 
   formElement.onsubmit = function() {
+    /**
+     *
+     * @const {number}
+     */
     var MY_LAST_BD = +new Date(2015, 6, 27);
     var expDate = (+Date.now() * 2 - MY_LAST_BD) / 1000;
     var valueCurrentRadio;
