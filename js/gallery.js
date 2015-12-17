@@ -88,6 +88,12 @@
     if (event.keyCode === 27) {
       this.hide();
     }
+    if (event.keyCode === 37) {
+      this._onLeftClick();
+    }
+    if (event.keyCode === 39) {
+      this._onRightClick();
+    }
   };
 
   /**
