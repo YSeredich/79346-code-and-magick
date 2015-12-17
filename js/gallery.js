@@ -12,6 +12,7 @@
     this._closeButton = document.querySelector('.overlay-gallery-close');
     this._PreviousButton = document.querySelector('.overlay-gallery-control-left');
     this._NextButton = document.querySelector('.overlay-gallery-control-right');
+    this._currentPicture = 0;
 
     this._onLeftClick = this._onLeftClick.bind(this);
     this._onRightClick = this._onRightClick.bind(this);
@@ -45,6 +46,32 @@
   };
 
   /**
+   * Метод принимает на вход массив объектов Photo и сохраняет его
+   * @param {Array} ArrayPhoto
+   */
+  Gallery.prototype.setPictures = function(ArrayPhoto) {
+    this._photos = ArrayPhoto;
+  };
+
+  /**
+   * Метод берет фотографию с переданным индексом из массива фотографий
+   * и отрисовывает её в галерее
+   * @param {number} number
+   */
+  Gallery.prototype.setCurrentPicture = function(number) {
+
+    var preview = document.querySelector('.overlay-gallery-preview');
+    var numberCurrent = document.querySelector('.preview-number-current');
+    var numberTotal = document.querySelector('.preview-number-total');
+
+    this._currentPicture = number;
+    var photo = this._photos[number];
+    preview.appendChild(photo.getPhoto());
+    numberCurrent.innerHTML = '' + number + 1;
+    numberTotal.innerHTML = '' + this._photos.length;
+  };
+
+  /**
    * Обработчик события клика по кнопке, закрывающей галерею
    * @private
    */
@@ -68,7 +95,9 @@
    * @private
    */
   Gallery.prototype._onLeftClick = function() {
-    console.log('I am work');
+    if (this._currentPicture - 2) {
+      this.setCurrentPicture(this._currentPicture - 1);
+    }
   };
 
   /**
@@ -76,7 +105,9 @@
    * @private
    */
   Gallery.prototype._onRightClick = function() {
-    console.log('I am work, too');
+    if (this._currentPicture + 1 < this._photos.length) {
+      this.setCurrentPicture(this._currentPicture + 1);
+    }
   };
 
   /**
