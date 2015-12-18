@@ -127,13 +127,19 @@
    * Обработчик события клика на фотографии фотогалереи
    * @param {Event} event
    */
-  photogallery.addEventListener('click', function(event) {
+  photogallery.onclick = function(event) {
     var clickedElement = event.target;
     if (clickedElement.tagName === 'IMG') {
       event.preventDefault();
+      this._photos.forEach(function(element, i) {
+        if (clickedElement === element.getPhoto()) {
+          this._currentPicture = i;
+        }
+      });
       gallery.show();
+      gallery.setCurrentPicture(this._currentPicture);
     }
-  });
+  };
 
   window.Gallery = Gallery;
 })();
