@@ -1,6 +1,7 @@
 /**
  * Created by Julia on 12.12.2015.
  */
+/* global gallery: true */
 'use strict';
 ( function() {
   /**
@@ -120,7 +121,7 @@
    *
    * @type {Gallery}
    */
-  var gallery = new Gallery();
+
   var photogallery = document.querySelector('.photogallery');
 
   /**

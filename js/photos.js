@@ -20,4 +20,5 @@
    */
   var gallery = new Gallery();
   gallery.setPictures(ArrayPhoto);
+  window.gallery = gallery;
 })();
