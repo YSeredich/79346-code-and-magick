@@ -4,13 +4,13 @@
 'use strict';
 /* global Gallery: true, Photo: true */
 ( function() {
-  var arrLinks = document.querySelectorAll('.photogallery-image img');
+  var arrLinks = document.querySelectorAll('.photogallery-image');
 
   /**
    * Делаем массив из элементов Photo
    * @type {Array}
    */
-  var ArrayPhoto = [].map.call(arrLinks, function(img, i) {
+  var arrayPhoto = [].map.call(arrLinks, function(img, i) {
     img = arrLinks[i].getElementsByTagName('img');
     return new Photo(img);
   });
@@ -19,6 +19,6 @@
    * @type {Gallery}
    */
   var gallery = new Gallery();
-  gallery.setPictures(ArrayPhoto);
+  gallery.setPictures(arrayPhoto);
   window.gallery = gallery;
 })();

@@ -14,6 +14,7 @@
     this._PreviousButton = document.querySelector('.overlay-gallery-control-left');
     this._NextButton = document.querySelector('.overlay-gallery-control-right');
     this._currentPicture = 0;
+    this._photos = [];
 
     this._onLeftClick = this._onLeftClick.bind(this);
     this._onRightClick = this._onRightClick.bind(this);
@@ -48,10 +49,10 @@
 
   /**
    * Метод принимает на вход массив объектов Photo и сохраняет его
-   * @param {Array} ArrayPhoto
+   * @param {Array} arrayPhoto
    */
-  Gallery.prototype.setPictures = function(ArrayPhoto) {
-    this._photos = ArrayPhoto;
+  Gallery.prototype.setPictures = function(arrayPhoto) {
+    this._photos = arrayPhoto;
   };
 
   /**
@@ -122,25 +123,24 @@
    * @type {Gallery}
    */
 
-  var photogallery = document.querySelector('.photogallery');
-
+  var photogalleryImages = document.querySelectorAll('.photogallery-image');
   /**
    * Обработчик события клика на фотографии фотогалереи
    * @param {Event} event
    */
-  photogallery.onclick = function(event) {
-    var clickedElement = event.target;
-    if (clickedElement.tagName === 'IMG') {
+  for (var i = 0; i < photogalleryImages.length; i++) {
+    photogalleryImages[i].onclick = function(event) {
       event.preventDefault();
-      this._photos.forEach(function(element, i) {
-        if (clickedElement === element.getPhoto()) {
-          this._currentPicture = i;
+      var currentPicture;
+      gallery._photos.forEach(function(element, num) {
+        if (photogalleryImages[i] === element.getPhoto()) {
+          currentPicture = num;
         }
       });
       gallery.show();
-      gallery.setCurrentPicture(this._currentPicture);
-    }
-  };
+      gallery.setCurrentPicture(currentPicture);
+    };
+  }
 
   window.Gallery = Gallery;
 })();
