@@ -16,10 +16,19 @@
    * @const {number}
    */
   var ONE_PAGE = 3;
-  var currentFilterId = 0;
+  var currentFilterId;
   wantMoreReviews.classList.remove('invisible');
-
   reviewsFilter.classList.add('invisible');
+
+  if (localStorage.getItem('currentFilterId')) {
+    currentFilterId = localStorage.getItem('currentFilterId');
+    var checkedFilter = document.getElementById('reviews-all');
+    var newFilter = document.getElementById(currentFilterId);
+    checkedFilter.checked = false;
+    newFilter.checked = true;
+  } else {
+    currentFilterId = 'reviews-all';
+  }
 
   /**
    * Функция для фильтрации отзывов
@@ -196,6 +205,7 @@
     wantMoreReviews.classList.remove('invisible');
     filteringReviews();
     drawingReviews(currentPage, true);
+    localStorage.setItem('currentFilterId', currentFilterId);
   };
 
   wantMoreReviews.onclick = function() {
