@@ -12,6 +12,7 @@
    */
   var arrayPhoto = [].map.call(arrLinks, function(img, i) {
     img = arrLinks[i].getElementsByTagName('img');
+    img = img[0].cloneNode(true);
     return new Photo(img);
   });
 
