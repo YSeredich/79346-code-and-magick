@@ -56,24 +56,40 @@
   };
 
   /**
+   * Возвращает адрес выбранного элемента
+   * @param {number} index
+   * @returns {string}
+   */
+  Gallery.prototype.returnSrc = function(index) {
+    return this._photos[index].src;
+  };
+
+  /**
    * Метод берет фотографию с переданным индексом из массива фотографий
    * и отрисовывает её в галерее
-   * @param {number} number
+   * @param {number|string} data
    */
-  Gallery.prototype.setCurrentPicture = function(number) {
+  Gallery.prototype.setCurrentPicture = function(data) {
 
     var preview = document.querySelector('.overlay-gallery-preview');
     var numberCurrent = document.querySelector('.preview-number-current');
     var numberTotal = document.querySelector('.preview-number-total');
+    var photo;
+    if (typeof data === 'number') {
+      this._currentPicture = data;
+      photo = this._photos[data];
+    } else if (typeof data === 'string') {
+      //каким-то магическим образом я нахожу фотографию по пути
+      photo = '';
+    }
 
-    this._currentPicture = number;
-    var photo = this._photos[number];
     var oldPhoto = preview.querySelector('img');
     if (oldPhoto) {
       preview.removeChild(oldPhoto);
     }
     preview.appendChild(photo.getPhoto());
-    var numCur = number + 1;
+    //тут у меня все ломается
+    var numCur = data + 1;
     var numTot = this._photos.length;
     numberCurrent.innerHTML = '' + numCur;
     numberTotal.innerHTML = '' + numTot;
@@ -84,7 +100,7 @@
    * @private
    */
   Gallery.prototype._onCloseClick = function() {
-    this.hide();
+    location.hash = '';
   };
 
   /**
@@ -133,11 +149,20 @@
     photogalleryImages[i].onclick = (function(index) {
       return function(event) {
         event.preventDefault();
-        gallery.show();
-        gallery.setCurrentPicture(index);
+        location.hash = '#photo/' + gallery.returnSrc(index);
       };
     })(i);
   }
 
+  //на каком этапе я заполняю стринг ...
+  window.addEventListener('hashchange', function(string) {
+    var REG_EXP = /#photo\/(\S+)/;
+    if (string.match(REG_EXP)) {
+      gallery.show();
+      gallery.setCurrentPicture(string);
+    } else {
+      gallery.hide();
+    }
+  });
   window.Gallery = Gallery;
 })();
