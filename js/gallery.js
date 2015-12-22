@@ -61,7 +61,7 @@
    * @returns {string}
    */
   Gallery.prototype.returnSrc = function(index) {
-    return this._photos[index].src;
+    return this._photos[index].getSrc();
   };
 
   /**
@@ -70,26 +70,33 @@
    * @param {number|string} data
    */
   Gallery.prototype.setCurrentPicture = function(data) {
-
-    var preview = document.querySelector('.overlay-gallery-preview');
-    var numberCurrent = document.querySelector('.preview-number-current');
-    var numberTotal = document.querySelector('.preview-number-total');
     var photo;
+    var numCur;
     if (typeof data === 'number') {
       this._currentPicture = data;
       photo = this._photos[data];
     } else if (typeof data === 'string') {
-      //каким-то магическим образом я нахожу фотографию по пути
-      photo = '';
+      this._photos.forEach(function(i) {
+        if (this._photos[i].getSrc() === data) {
+          photo = this._photos[i];
+          numCur = i;
+        }
+      });
     }
+    this._renderPhoto(photo, numCur);
+  };
+
+  Gallery.prototype._renderPhoto = function(photo, numCur) {
+    var preview = document.querySelector('.overlay-gallery-preview');
+    var numberCurrent = document.querySelector('.preview-number-current');
+    var numberTotal = document.querySelector('.preview-number-total');
 
     var oldPhoto = preview.querySelector('img');
     if (oldPhoto) {
       preview.removeChild(oldPhoto);
     }
     preview.appendChild(photo.getPhoto());
-    //тут у меня все ломается
-    var numCur = data + 1;
+    numCur = numCur + 1;
     var numTot = this._photos.length;
     numberCurrent.innerHTML = '' + numCur;
     numberTotal.innerHTML = '' + numTot;
@@ -154,12 +161,12 @@
     })(i);
   }
 
-  //на каком этапе я заполняю стринг ...
   window.addEventListener('hashchange', function(string) {
     var REG_EXP = /#photo\/(\S+)/;
     if (string.match(REG_EXP)) {
       gallery.show();
-      gallery.setCurrentPicture(string);
+      var srcString = string.substr(7);
+      gallery.setCurrentPicture(srcString);
     } else {
       gallery.hide();
     }

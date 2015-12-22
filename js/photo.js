@@ -20,5 +20,13 @@
     return this._element;
   };
 
+  /**
+   *
+   * @returns {string}
+   */
+  Photo.prototype.getSrc = function() {
+    return this._element.src;
+  };
+
   window.Photo = Photo;
 })();
