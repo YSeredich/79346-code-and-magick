@@ -40,6 +40,7 @@
    */
   Gallery.prototype.hide = function() {
     this.element.classList.add('invisible');
+    location.hash = '';
 
     this._previousButton.removeEventListener('click', this._onLeftClick);
     this._nextButton.removeEventListener('click', this._onRightClick);
@@ -56,24 +57,49 @@
   };
 
   /**
+   * Возвращает адрес выбранного элемента
+   * @param {number} index
+   * @returns {string}
+   */
+  Gallery.prototype.returnSrc = function(index) {
+    return this._photos[index].getSrc();
+  };
+
+  /**
    * Метод берет фотографию с переданным индексом из массива фотографий
    * и отрисовывает её в галерее
-   * @param {number} number
+   * @param {number|string} data
    */
-  Gallery.prototype.setCurrentPicture = function(number) {
+  Gallery.prototype.setCurrentPicture = function(data) {
+    var photo;
+    var numCur;
+    var photos = this._photos;
+    if (typeof data === 'number') {
+      this._currentPicture = data;
+      photo = photos[data];
+    } else if (typeof data === 'string') {
+      photos.forEach(function(element, i) {
+        if (photos[i].getSrc() === data) {
+          photo = element;
+          numCur = i;
+        }
+      });
+    }
+    this._currentPicture = numCur;
+    this._renderPhoto(photo, numCur);
+  };
 
+  Gallery.prototype._renderPhoto = function(photo, numCur) {
     var preview = document.querySelector('.overlay-gallery-preview');
     var numberCurrent = document.querySelector('.preview-number-current');
     var numberTotal = document.querySelector('.preview-number-total');
 
-    this._currentPicture = number;
-    var photo = this._photos[number];
     var oldPhoto = preview.querySelector('img');
     if (oldPhoto) {
       preview.removeChild(oldPhoto);
     }
     preview.appendChild(photo.getPhoto());
-    var numCur = number + 1;
+    numCur = numCur + 1;
     var numTot = this._photos.length;
     numberCurrent.innerHTML = '' + numCur;
     numberTotal.innerHTML = '' + numTot;
@@ -83,7 +109,8 @@
    * Обработчик события клика по кнопке, закрывающей галерею
    * @private
    */
-  Gallery.prototype._onCloseClick = function() {
+  Gallery.prototype._onCloseClick = function(event) {
+    event.preventDefault();
     this.hide();
   };
 
@@ -110,7 +137,7 @@
    */
   Gallery.prototype._onLeftClick = function() {
     if (this._currentPicture > 0) {
-      this.setCurrentPicture(this._currentPicture - 1);
+      location.hash = '#photo/' + this.returnSrc(this._currentPicture - 1);
     }
   };
 
@@ -120,7 +147,7 @@
    */
   Gallery.prototype._onRightClick = function() {
     if (this._currentPicture < this._photos.length - 1) {
-      this.setCurrentPicture(this._currentPicture + 1);
+      location.hash = '#photo/' + this.returnSrc(this._currentPicture + 1);
     }
   };
 
@@ -133,11 +160,23 @@
     photogalleryImages[i].onclick = (function(index) {
       return function(event) {
         event.preventDefault();
-        gallery.show();
-        gallery.setCurrentPicture(index);
+        location.hash = '#photo/' + gallery.returnSrc(index);
       };
     })(i);
   }
 
+  var onHashChange = function() {
+    var REG_EXP = /#photo\/(\S+)/;
+    if (location.hash.match(REG_EXP)) {
+      gallery.show();
+      var srcString = location.hash.substr(7);
+      gallery.setCurrentPicture(srcString);
+    } else {
+      gallery.hide();
+    }
+  };
+
+  window.addEventListener('hashchange', onHashChange);
   window.Gallery = Gallery;
+  window.onHashChange = onHashChange;
 })();
