@@ -40,6 +40,7 @@
    */
   Gallery.prototype.hide = function() {
     this.element.classList.add('invisible');
+    location.hash = '';
 
     this._previousButton.removeEventListener('click', this._onLeftClick);
     this._nextButton.removeEventListener('click', this._onRightClick);
@@ -72,17 +73,19 @@
   Gallery.prototype.setCurrentPicture = function(data) {
     var photo;
     var numCur;
+    var photos = this._photos;
     if (typeof data === 'number') {
       this._currentPicture = data;
-      photo = this._photos[data];
+      photo = photos[data];
     } else if (typeof data === 'string') {
-      this._photos.forEach(function(i) {
-        if (this._photos[i].getSrc() === data) {
-          photo = this._photos[i];
+      photos.forEach(function(element, i) {
+        if (photos[i].getSrc() === data) {
+          photo = element;
           numCur = i;
         }
       });
     }
+    this._currentPicture = numCur;
     this._renderPhoto(photo, numCur);
   };
 
@@ -106,8 +109,9 @@
    * Обработчик события клика по кнопке, закрывающей галерею
    * @private
    */
-  Gallery.prototype._onCloseClick = function() {
-    location.hash = '';
+  Gallery.prototype._onCloseClick = function(event) {
+    event.preventDefault();
+    this.hide();
   };
 
   /**
@@ -133,7 +137,7 @@
    */
   Gallery.prototype._onLeftClick = function() {
     if (this._currentPicture > 0) {
-      this.setCurrentPicture(this._currentPicture - 1);
+      location.hash = '#photo/' + this.returnSrc(this._currentPicture - 1);
     }
   };
 
@@ -143,7 +147,7 @@
    */
   Gallery.prototype._onRightClick = function() {
     if (this._currentPicture < this._photos.length - 1) {
-      this.setCurrentPicture(this._currentPicture + 1);
+      location.hash = '#photo/' + this.returnSrc(this._currentPicture + 1);
     }
   };
 
@@ -161,11 +165,11 @@
     })(i);
   }
 
-  window.addEventListener('hashchange', function(string) {
+  window.addEventListener('hashchange', function() {
     var REG_EXP = /#photo\/(\S+)/;
-    if (string.match(REG_EXP)) {
+    if (location.hash.match(REG_EXP)) {
       gallery.show();
-      var srcString = string.substr(7);
+      var srcString = location.hash.substr(7);
       gallery.setCurrentPicture(srcString);
     } else {
       gallery.hide();

@@ -25,7 +25,7 @@
    * @returns {string}
    */
   Photo.prototype.getSrc = function() {
-    return this._element.src;
+    return this._element.attributes[0].value;
   };
 
   window.Photo = Photo;
