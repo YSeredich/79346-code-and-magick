@@ -165,7 +165,7 @@
     })(i);
   }
 
-  window.addEventListener('hashchange', function() {
+  var onHashChange = function() {
     var REG_EXP = /#photo\/(\S+)/;
     if (location.hash.match(REG_EXP)) {
       gallery.show();
@@ -174,6 +174,9 @@
     } else {
       gallery.hide();
     }
-  });
+  };
+
+  window.addEventListener('hashchange', onHashChange);
   window.Gallery = Gallery;
+  window.onHashChange = onHashChange;
 })();
