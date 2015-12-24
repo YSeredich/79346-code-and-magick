@@ -169,4 +169,4 @@ define([
 
   window.addEventListener('hashchange', onHashChange);
   return Gallery;
-})();
+});
