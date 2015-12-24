@@ -1,6 +1,16 @@
 'use strict';
+/* global define: true, requirejs: true */
 
-(function() {
+requirejs.config({
+  baseUrl: 'js'
+});
+
+define([
+  'form',
+  'gallery',
+  'photos',
+  'reviews'
+], function() {
 
   var clouds = document.querySelector('.header-clouds');
   var demo = document.querySelector('.demo');
