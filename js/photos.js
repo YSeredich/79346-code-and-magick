@@ -2,8 +2,12 @@
  * Created by Julia on 18.12.2015.
  */
 'use strict';
-/* global Gallery: true, Photo: true,  onHashChange: true */
-( function() {
+/* global define: true */
+define([
+  'gallery',
+  'photo',
+  'hash-change'
+], function(Gallery, Photo, onHashChange) {
   var arrLinks = document.querySelectorAll('.photogallery-image');
 
   /**
@@ -21,6 +25,7 @@
    */
   var gallery = new Gallery();
   gallery.setPictures(arrayPhoto);
-  window.gallery = gallery;
   onHashChange();
+
+  return gallery;
 })();

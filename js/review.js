@@ -2,7 +2,8 @@
  * Created by Julia on 12.12.2015.
  */
 'use strict';
-( function() {
+/* global define: true */
+define( function() {
   /**
    * Конструктор отзыва
    * @param {Object} data
@@ -50,10 +51,5 @@
     avatarImage.title = this._data.author.name;
   };
 
-  /**
-   * Вывод конструктора отзывов в глобальную область видимости
-   * @global
-   * @type {Review}
-   */
-  window.Review = Review;
+  return Review;
 })();

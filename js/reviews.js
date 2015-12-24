@@ -1,9 +1,11 @@
 /**
  * Created by Julia on 27.11.2015.
  */
-/* global Review: true*/
 'use strict';
-(function() {
+/* global define: true */
+define([
+  'review'
+], function(Review) {
 
   var reviewsFilter = document.querySelector('.reviews-filter');
   var container = document.querySelector('.reviews-list');
