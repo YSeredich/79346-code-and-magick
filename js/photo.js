@@ -2,7 +2,8 @@
  * Created by Julia on 16.12.2015.
  */
 'use strict';
-( function() {
+/* global define: true */
+define( function() {
   /**
    *
    * @param {Element} element
@@ -28,5 +29,5 @@
     return this._element.attributes[0].value;
   };
 
-  window.Photo = Photo;
-})();
+  return Photo;
+});

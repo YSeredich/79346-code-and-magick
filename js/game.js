@@ -1,6 +1,15 @@
 'use strict';
+/* global define: true, requirejs: true */
 
-(function() {
+requirejs.config({
+  baseUrl: 'js'
+});
+
+define([
+  'form',
+  'photos',
+  'reviews'
+], function() {
 
   var clouds = document.querySelector('.header-clouds');
   var demo = document.querySelector('.demo');
@@ -774,4 +783,4 @@
   var game = new Game(document.querySelector('.demo'));
   game.initializeLevelAndStart();
   game.setGameStatus(window.Game.Verdict.INTRO);
-})();
+});

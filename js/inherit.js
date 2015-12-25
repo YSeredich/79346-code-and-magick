@@ -2,7 +2,8 @@
  * Created by Julia on 14.12.2015.
  */
 'use strict';
-( function() {
+/* global define: true */
+define( function() {
   /**
    * Функция записывает в прототип дочернего конструктора child
    * методы и свойства родительского конструктора parent
@@ -23,11 +24,6 @@
     child.prototype = new EmptyConstructor();
   }
 
-  /**
-   * Вывод метода в глобальную область видимости
-   * @global
-   * @type {inherit}
-   */
-  window.inherit = inherit;
-})();
+  return inherit;
+});
 

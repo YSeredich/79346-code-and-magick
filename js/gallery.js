@@ -1,9 +1,9 @@
 /**
  * Created by Julia on 12.12.2015.
  */
-/* global gallery: true */
 'use strict';
-( function() {
+/* global define: true */
+define(function() {
   /**
    * Конструктор галереи
    * @constructor
@@ -73,13 +73,12 @@
   Gallery.prototype.setCurrentPicture = function(data) {
     var photo;
     var numCur;
-    var photos = this._photos;
     if (typeof data === 'number') {
       this._currentPicture = data;
-      photo = photos[data];
+      photo = this._photos[data];
     } else if (typeof data === 'string') {
-      photos.forEach(function(element, i) {
-        if (photos[i].getSrc() === data) {
+      this._photos.forEach(function(element, i) {
+        if (element.getSrc() === data) {
           photo = element;
           numCur = i;
         }
@@ -151,32 +150,5 @@
     }
   };
 
-  var photogalleryImages = document.querySelectorAll('.photogallery-image');
-  /**
-   * Обработчик события клика на фотографии фотогалереи
-   * @param {Event} event
-   */
-  for (var i = 0; i < photogalleryImages.length; i++) {
-    photogalleryImages[i].onclick = (function(index) {
-      return function(event) {
-        event.preventDefault();
-        location.hash = '#photo/' + gallery.returnSrc(index);
-      };
-    })(i);
-  }
-
-  var onHashChange = function() {
-    var REG_EXP = /#photo\/(\S+)/;
-    if (location.hash.match(REG_EXP)) {
-      gallery.show();
-      var srcString = location.hash.substr(7);
-      gallery.setCurrentPicture(srcString);
-    } else {
-      gallery.hide();
-    }
-  };
-
-  window.addEventListener('hashchange', onHashChange);
-  window.Gallery = Gallery;
-  window.onHashChange = onHashChange;
-})();
+  return Gallery;
+});
