@@ -7,7 +7,6 @@ requirejs.config({
 
 define([
   'form',
-  'gallery',
   'photos',
   'reviews'
 ], function() {
