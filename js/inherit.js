@@ -25,5 +25,6 @@ define( function() {
   }
 
   return inherit;
-})();
+});
+
 
